@@ -13,7 +13,7 @@ public class Repository {
     private EntityManager entityManager;
 
     public List<Person> getPersonsByCity(String city) {
-        String sql = "SELECT p FROM Person p WHERE p.cityOfLiving = :city";
+        String sql = "from Person where cityOfLiving = :city";
         return entityManager.createQuery(sql, Person.class).setParameter("city", city).getResultList();
     }
 }
