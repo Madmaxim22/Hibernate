@@ -18,8 +18,9 @@ public class Order {
     private Long id;
     @Column
     private String date;
-    @Column
-    private Long customerId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
     @Column
     private String productName;
     @Column
