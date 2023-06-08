@@ -3,6 +3,7 @@ package com.example.HibernateTest.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,6 +17,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @Builder
 @Entity
+@IdClass(PersonId.class)
 public class Person {
 
     @Id
