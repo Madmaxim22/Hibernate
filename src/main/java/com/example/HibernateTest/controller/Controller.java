@@ -17,6 +17,16 @@ public class Controller {
 
     @GetMapping("/persons/by-city")
     public List<Person> getlistPersonInCity(@RequestParam String city) {
-        return repository.getPersonsByCity(city);
+        return repository.findByCityOfLiving(city);
+    }
+
+    @GetMapping("/persons/by-age")
+    public List<Person> getlistPersonInCity(@RequestParam int age) {
+        return repository.findByAgeLessThanOrderByAge(age);
+    }
+
+    @GetMapping("/persons/by-name-surname")
+    public List<Person> getlistPersonInCity(@RequestParam String name, String surname) {
+        return repository.findByNameAndSurname(name, surname);
     }
 }
