@@ -10,4 +10,5 @@ public class HibernateTestApplication {
 		SpringApplication.run(HibernateTestApplication.class, args);
 	}
 
+
 }
