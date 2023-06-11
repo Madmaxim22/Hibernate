@@ -33,45 +33,21 @@ public class SecurityConfiguration {
         UserDetails user = User.withUsername("user")
                 .password(passwordEncoder.encode("password"))
                 .roles("USER")
+                .authorities("READ")
+                .build();
+
+        UserDetails staff = User.withUsername("staff")
+                .password(passwordEncoder.encode("staff"))
+                .roles("STAFF")
+                .authorities("WRITE")
                 .build();
 
         UserDetails admin = User.withUsername("admin")
                 .password(passwordEncoder.encode("admin"))
-                .roles("USER", "ADMIN")
+                .roles("ADMIN")
+                .authorities("DELETE")
                 .build();
 
-        return new InMemoryUserDetailsManager(user, admin);
-    }
-
-    @Bean
-    @Order(1)
-    public SecurityFilterChain adminFilterChain(HttpSecurity http) throws Exception {
-        http
-                .securityMatcher("/persons/by-name-surname")
-                .authorizeHttpRequests(authorize -> authorize.anyRequest().hasRole("ADMIN"))
-                .formLogin(withDefaults())
-                .httpBasic(withDefaults());
-        return http.build();
-    }
-
-    @Bean
-    @Order(2)
-    public SecurityFilterChain allFilterChain(HttpSecurity http) throws Exception {
-        http
-                .securityMatcher("/persons/by-age")
-                .authorizeHttpRequests(authorize -> authorize.anyRequest().hasRole("USER"))
-                .formLogin(withDefaults())
-                .httpBasic(withDefaults());
-        return http.build();
-    }
-
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().permitAll())
-                .formLogin(withDefaults())
-                .httpBasic(withDefaults());
-        return http.build();
+        return new InMemoryUserDetailsManager(user, staff, admin);
     }
 }
